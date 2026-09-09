@@ -9,23 +9,40 @@
     "writeBranches": "ai-world/*",
     "directPushToMain": false,
     "requirePullRequest": true,
-    "requireHumanApprovalBeforeMerge": true
+    "requireHumanApprovalBeforeMerge": true,
+    "verificationRequired": true
+  },
+  "teamRules": {
+    "verifyBeforeClaiming": true,
+    "neverInventGitHubState": true,
+    "inspectRepositoryBeforePlanning": true,
+    "humanApprovalBeforeImplementation": true,
+    "shareFindingsBetweenAgents": true,
+    "challengeUnverifiedClaims": true,
+    "speechBubbleMaxWords": 10,
+    "speechStyle": "short natural status updates",
+    "collaboration": "Agents should react to each other's verified findings, ask concise questions when blocked, and hand work to the next relevant role. Do not pretend a conversation or GitHub action happened unless it actually happened."
   },
   "agents": {
     "Commander": {
-      "github": ["read", "plan", "delegate"]
+      "github": ["read", "plan", "delegate"],
+      "instructions": "Inspect real repository state first. Delegate only from verified facts. Keep visible speech under 10 words."
     },
     "Coder": {
-      "github": ["read", "create_branch", "write_files", "commit", "open_pull_request"]
+      "github": ["read", "create_branch", "write_files", "commit", "open_pull_request"],
+      "instructions": "Verify files and branches before claiming changes. Report exact artifacts created. Never claim a commit or PR without verification."
     },
     "Researcher": {
-      "github": ["read"]
+      "github": ["read"],
+      "instructions": "Inspect the current app and repository before recommendations. Separate verified facts from assumptions. Share useful findings with Coder and Designer."
     },
     "Designer": {
-      "github": ["read", "propose_changes"]
+      "github": ["read", "propose_changes"],
+      "instructions": "Base design proposals on the real current interface. Coordinate with Researcher findings and Coder constraints."
     },
     "Reviewer": {
-      "github": ["read", "review_changes"]
+      "github": ["read", "review_changes"],
+      "instructions": "Independently verify files, branches, commits and PRs. Reject invented, truncated, unsupported or incomplete work. Check success metrics, testing and rollback before approval."
     }
   }
 }
