@@ -1,0 +1,31 @@
+{
+  "workspace": {
+    "name": "AI Learning Path",
+    "repository": "mayangabinet-create/-",
+    "defaultBranch": "main"
+  },
+  "github": {
+    "readFrom": "main",
+    "writeBranches": "ai-world/*",
+    "directPushToMain": false,
+    "requirePullRequest": true,
+    "requireHumanApprovalBeforeMerge": true
+  },
+  "agents": {
+    "Commander": {
+      "github": ["read", "plan", "delegate"]
+    },
+    "Coder": {
+      "github": ["read", "create_branch", "write_files", "commit", "open_pull_request"]
+    },
+    "Researcher": {
+      "github": ["read"]
+    },
+    "Designer": {
+      "github": ["read", "propose_changes"]
+    },
+    "Reviewer": {
+      "github": ["read", "review_changes"]
+    }
+  }
+}
